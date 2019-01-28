@@ -5,7 +5,9 @@ import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
-  PropertyPaneSlider
+  PropertyPaneSlider,
+  PropertyPaneDropdown,
+  IPropertyPaneDropdownOption
 } from '@microsoft/sp-webpart-base';
 import { 
   PropertyFieldColorPicker,
@@ -15,27 +17,39 @@ import {
 import * as strings from 'ReactAccordionWebPartStrings';
 import ReactAccordion from './components/ReactAccordion';
 import { IReactAccordionProps } from './components/IReactAccordionProps';
+import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
+import { ISPLists, ISPList } from './models/ISPList';
+import { listViewHostComponentId } from '../../../temp/workbench-packages/@microsoft_sp-loader/lib/utilities/componentConstants';
 
 export interface IReactAccordionWebPartProps {
   headerBackgroundColor: string;
   headerTextColor: string;
+  questionBackgroundColor: string;
+  questionTextColor: string;
+  answerBackgroundColor: string;
+  answerTextColor: string;
   listName: string;
   choice: string;
   title: string;
   displayMode: DisplayMode;
   maxItemsPerPage: number;
   updateProperty: (value: string) => void;
-  updateHeaderBackgroundColor: (value: string) => void;
 }
 
+
 export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactAccordionWebPartProps> {
+  private lists: IPropertyPaneDropdownOption[];
 
   public render(): void {
     const element: React.ReactElement<IReactAccordionProps> = React.createElement(
       ReactAccordion,
       {  
         headerBackgroundColor: this.properties.headerBackgroundColor,
-        headerTextColor: this.properties.headerTextColor,      
+        headerTextColor: this.properties.headerTextColor,
+        questionBackgroundColor: this.properties.questionBackgroundColor,  
+        questionTextColor: this.properties.questionTextColor,
+        answerBackgroundColor: this.properties.answerBackgroundColor,  
+        answerTextColor: this.properties.answerTextColor,      
         listName: this.properties.listName,
         spHttpClient: this.context.spHttpClient,
         siteUrl: this.context.pageContext.web.absoluteUrl,
@@ -44,16 +58,15 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         maxItemsPerPage: this.properties.maxItemsPerPage,
         updateProperty: (value: string) => {
           this.properties.title = value;
-        },
-        updateHeaderBackgroundColor: (value: string) => {
-          this.properties.headerBackgroundColor = value;
         }
       }
     );
 
     ReactDom.render(element, this.domElement);
+   
+   
   }
-
+  
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);
   }
@@ -62,6 +75,43 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
     return Version.parse('1.0');
   }
 
+  
+  private _getListData(): Promise<ISPLists> {
+    let restAPI = this.context.pageContext.web.absoluteUrl + `/_api/web/lists?$filter=Hidden eq false`;
+    return this.context.spHttpClient.get(restAPI, SPHttpClient.configurations.v1)
+      .then((response: SPHttpClientResponse) => {
+        return response.json();
+      });
+  }
+
+  private _loadSPLists(): Promise<IPropertyPaneDropdownOption[]> {
+    return new Promise<IPropertyPaneDropdownOption[]>((resolve: (options: IPropertyPaneDropdownOption[]) => void, reject: (error: any) => void) => {
+      
+        this._getListData().then((data) => {
+          var list = [];
+            data.value.map((item,i) => {
+                 list.push({key: item.Title, text: item.Title})
+            });
+            resolve(list);
+            console.log(list);           
+        })
+    });
+  }
+
+  protected onPropertyPaneConfigurationStart(): void {
+  
+    if (this.lists) {
+      return;
+    }
+    this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'lists'); 
+    this._loadSPLists()
+     .then((listOptions: IPropertyPaneDropdownOption[]): void => {
+       this.lists = listOptions;
+       this.context.propertyPane.refresh();
+       this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+       this.render();
+     });
+  }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -73,8 +123,10 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('listName', {
-                  label: strings.ListNameLabel
+              
+                PropertyPaneDropdown('listName', {
+                  label: 'Dropdown',
+                  options: this.lists
                 }),
                 PropertyPaneSlider('maxItemsPerPage', {
                   label: strings.MaxItemsPerPageLabel,
@@ -95,7 +147,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: strings.HeaderGroupName,
               groupFields: [
                 PropertyFieldColorPicker('headerBackgroundColor', {
                   label: 'Header Background Colour',
@@ -107,7 +159,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
                   alphaSliderHidden: false,
                   style: PropertyFieldColorPickerStyle.Full,
                   iconName: 'Precipitation',
-                  key: 'colorFieldId'
+                  key: 'headerBackgroundColor'
                 }),
                 PropertyFieldColorPicker('headerTextColor', {
                   label: 'Header Text Colour',
@@ -119,7 +171,79 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
                   alphaSliderHidden: false,
                   style: PropertyFieldColorPickerStyle.Full,
                   iconName: 'Precipitation',
-                  key: 'colorFieldId'
+                  key: 'headerTextColor'
+                })
+              ]
+            }
+          ]
+        },
+        {
+          header: {
+            description: strings.PropertyPaneDescription
+          },
+          groups: [
+            {
+              groupName: strings.QuestionGroupName,
+              groupFields: [
+                PropertyFieldColorPicker('questionBackgroundColor', {
+                  label: 'Question Background Colour',
+                  selectedColor: this.properties.questionBackgroundColor,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  disabled: false,
+                  isHidden: false,
+                  alphaSliderHidden: false,
+                  style: PropertyFieldColorPickerStyle.Full,
+                  iconName: 'Precipitation',
+                  key: 'questionBackgroundColor'
+                }),
+                PropertyFieldColorPicker('questionTextColor', {
+                  label: 'Question Text Colour',
+                  selectedColor: this.properties.questionTextColor,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  disabled: false,
+                  isHidden: false,
+                  alphaSliderHidden: false,
+                  style: PropertyFieldColorPickerStyle.Full,
+                  iconName: 'Precipitation',
+                  key: 'questionTextColor'
+                })
+              ]
+            }
+          ]
+        },
+        {
+          header: {
+            description: strings.PropertyPaneDescription
+          },
+          groups: [
+            {
+              groupName: strings.AnswerGroupName,
+              groupFields: [
+                PropertyFieldColorPicker('answerBackgroundColor', {
+                  label: 'Answer Background Colour',
+                  selectedColor: this.properties.answerBackgroundColor,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  disabled: false,
+                  isHidden: false,
+                  alphaSliderHidden: false,
+                  style: PropertyFieldColorPickerStyle.Full,
+                  iconName: 'Precipitation',
+                  key: 'answerBackgroundColor'
+                }),
+                PropertyFieldColorPicker('answerTextColor', {
+                  label: 'Answer Text Colour',
+                  selectedColor: this.properties.answerTextColor,
+                  onPropertyChange: this.onPropertyPaneFieldChanged,
+                  properties: this.properties,
+                  disabled: false,
+                  isHidden: false,
+                  alphaSliderHidden: false,
+                  style: PropertyFieldColorPickerStyle.Full,
+                  iconName: 'Precipitation',
+                  key: 'answerTextColor'
                 })
               ]
             }

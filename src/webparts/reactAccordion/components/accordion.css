@@ -51,10 +51,11 @@
 background-color: "[theme: themePrimary, default: #0078d7]";
 margin-bottom: 10px;  
 }
+
 .accordion {
     padding-top: 10px;
-
 }
+
 .accordion__item .accordion__title {
 padding: 5px 20px;
 background-color: "[theme: themePrimary, default: #0078d7]";
