@@ -19,7 +19,8 @@ import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
 import './accordion.css';
-import { ISPList, ISPLists } from "../models/ISPList";
+import { PropertyPaneSlider } from '@microsoft/sp-webpart-base';
+import { values } from '@uifabric/utilities/lib';
 
 export default class ReactAccordion extends React.Component<IReactAccordionProps, IReactAccordionState> {
 
@@ -30,7 +31,8 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       items: [],
       listItems: [],
       isLoading: false,
-      loaderMessage: ''
+      loaderMessage: '',
+      listName: this.props.listName
     };
 
     if (!this.listNotConfigured(this.props)) {
@@ -38,14 +40,20 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     }
 
     this.searchTextChange = this.searchTextChange.bind(this);
-  
+    this.listNameChange = this.listNameChange.bind(this);
   }
 
- 
+  
+
+  
   private listNotConfigured(props: IReactAccordionProps): boolean {
     return props.listName === undefined ||
       props.listName === null ||
       props.listName.length === 0;
+  }
+
+  private listNameChange(event) {
+    this.readItems();
   }
 
   private searchTextChange(event) {
@@ -68,9 +76,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
   }
 
   private readItems(): void {
-    let restAPI = this.props.siteUrl + `/_api/web/Lists/GetByTitle('${this.props.listName}')/items?$select=Title,Description`;
-
-    console.log(restAPI);
+    let restAPI = this.props.siteUrl + `/_api/web/Lists/GetByTitle('${this.props.listName}')/items?$select=Title,Description,SortOrder&$orderby=SortOrder`;
 
     this.props.spHttpClient.get(restAPI, SPHttpClient.configurations.v1, {
       headers: {
@@ -79,10 +85,17 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       }
     })
       .then((response: SPHttpClientResponse): Promise<{ value: IAccordionListItem[] }> => {
-        return response.json();
+        if(response.status === 200)
+          return response.json();
+        else {
+          console.error("Error", response.status);       
+         
+          return Promise.reject(new Error('Bad Request - List does not have required columns (Title, Description, SortOrder)'));
+        }
       })
       .then((response: { value: IAccordionListItem[] }): void => {
-
+        
+        
         let listItemsCollection = [...response.value];
 
         this.setState({
@@ -104,6 +117,14 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
   }
 
   public render(): React.ReactElement<IReactAccordionProps> {
+    if(this.props.listName !== this.state.listName) {
+      let _listName = this.props.listName;
+      this.props.updateListName();
+      this.setState({listName: _listName});
+      //this.listNameChange(this);
+      this.readItems();
+    }
+    
     let displayLoader;
     let faqTitle;
     let { listItems } = this.state;

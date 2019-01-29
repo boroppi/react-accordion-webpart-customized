@@ -6,4 +6,5 @@ export interface IReactAccordionState {
   listItems: IAccordionListItem[];
   isLoading: boolean;
   loaderMessage: string;
+  listName: string;
 }

@@ -7,7 +7,8 @@ import {
   PropertyPaneTextField,
   PropertyPaneSlider,
   PropertyPaneDropdown,
-  IPropertyPaneDropdownOption
+  IPropertyPaneDropdownOption,
+  PropertyPaneButton
 } from '@microsoft/sp-webpart-base';
 import { 
   PropertyFieldColorPicker,
@@ -19,7 +20,7 @@ import ReactAccordion from './components/ReactAccordion';
 import { IReactAccordionProps } from './components/IReactAccordionProps';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { ISPLists, ISPList } from './models/ISPList';
-import { listViewHostComponentId } from '../../../temp/workbench-packages/@microsoft_sp-loader/lib/utilities/componentConstants';
+//import { listViewHostComponentId } from '../../../temp/workbench-packages/@microsoft_sp-loader/lib/utilities/componentConstants';
 
 export interface IReactAccordionWebPartProps {
   headerBackgroundColor: string;
@@ -34,6 +35,7 @@ export interface IReactAccordionWebPartProps {
   displayMode: DisplayMode;
   maxItemsPerPage: number;
   updateProperty: (value: string) => void;
+  updateListName: () => void;
 }
 
 
@@ -58,6 +60,9 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         maxItemsPerPage: this.properties.maxItemsPerPage,
         updateProperty: (value: string) => {
           this.properties.title = value;
+        },
+        updateListName: () => {
+          this.render();          
         }
       }
     );
@@ -93,7 +98,6 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
                  list.push({key: item.Title, text: item.Title})
             });
             resolve(list);
-            console.log(list);           
         })
     });
   }
@@ -126,7 +130,8 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
               
                 PropertyPaneDropdown('listName', {
                   label: 'Dropdown',
-                  options: this.lists
+                  options: this.lists,
+                  
                 }),
                 PropertyPaneSlider('maxItemsPerPage', {
                   label: strings.MaxItemsPerPageLabel,
@@ -136,7 +141,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
                   value: 5,
                   showValue: true,
                   step: 1
-                }),
+                })              
               ]
             }
           ]

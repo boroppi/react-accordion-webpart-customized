@@ -16,4 +16,5 @@ export interface IReactAccordionProps {
   displayMode: DisplayMode;
   maxItemsPerPage: number;
   updateProperty: (value: string) => void;
+  updateListName: () => void;
 }
