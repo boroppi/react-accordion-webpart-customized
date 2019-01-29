@@ -90,7 +90,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         else {
           console.error("Error", response.status);       
          
-          return Promise.reject(new Error('Bad Request - List does not have required columns (Title, Description, SortOrder)'));
+          return Promise.reject(new Error(`Bad Request - List ${this.props.listName} does not have required columns (Title, Description, SortOrder)`));
         }
       })
       .then((response: { value: IAccordionListItem[] }): void => {
@@ -109,6 +109,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         this.setState({
           status: 'Loading all items failed with error: ' + error,
           items: [],
+          listItems: [],
           isLoading: false,
           loaderMessage: ""
         });
