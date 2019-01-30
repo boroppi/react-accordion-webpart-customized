@@ -95,10 +95,10 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         this._getListData().then((data) => {
           var list = [];
             data.value.map((item,i) => {
-                 list.push({key: item.Title, text: item.Title})
+                 list.push({key: item.Title, text: item.Title});
             });
             resolve(list);
-        })
+        });
     });
   }
 
@@ -130,8 +130,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
               
                 PropertyPaneDropdown('listName', {
                   label: 'Dropdown',
-                  options: this.lists,
-                  
+                  options: this.lists                  
                 }),
                 PropertyPaneSlider('maxItemsPerPage', {
                   label: strings.MaxItemsPerPageLabel,

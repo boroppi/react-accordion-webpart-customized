@@ -18,6 +18,7 @@ import 'react-accessible-accordion/dist/react-accessible-accordion.css';
 import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
+import WebPartTitleExtended from "../WebPartTitleExtended"
 import './accordion.css';
 import { PropertyPaneSlider } from '@microsoft/sp-webpart-base';
 import { values } from '@uifabric/utilities/lib';
@@ -115,6 +116,10 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         });
       });
 
+  }  
+
+  public componentWillUpdate() {
+
   }
 
   public render(): React.ReactElement<IReactAccordionProps> {
@@ -125,7 +130,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       //this.listNameChange(this);
       this.readItems();
     }
-    
+    console.log("ASDSADASD");
     let displayLoader;
     let faqTitle;
     let { listItems } = this.state;
@@ -180,7 +185,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         <div className={styles.container}>
           {faqTitle}
           {displayLoader}
-          <WebPartTitle displayMode={this.props.displayMode}
+          <WebPartTitleExtended displayMode={this.props.displayMode}
             title={this.props.title}
             updateProperty={this.props.updateProperty}
             titleBGColor={this.props.headerBackgroundColor}
