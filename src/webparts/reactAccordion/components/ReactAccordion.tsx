@@ -18,7 +18,7 @@ import 'react-accessible-accordion/dist/react-accessible-accordion.css';
 import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
 import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
-import WebPartTitleExtended from "../WebPartTitleExtended"
+import WebPartTitleWithStyles from "../WebPartTitleExtended";
 import './accordion.css';
 import { PropertyPaneSlider } from '@microsoft/sp-webpart-base';
 import { values } from '@uifabric/utilities/lib';
@@ -44,9 +44,9 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     this.listNameChange = this.listNameChange.bind(this);
   }
 
-  
 
-  
+
+
   private listNotConfigured(props: IReactAccordionProps): boolean {
     return props.listName === undefined ||
       props.listName === null ||
@@ -86,17 +86,17 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       }
     })
       .then((response: SPHttpClientResponse): Promise<{ value: IAccordionListItem[] }> => {
-        if(response.status === 200)
+        if (response.status === 200)
           return response.json();
         else {
-          console.error("Error", response.status);       
-         
+          console.error("Error", response.status);
+
           return Promise.reject(new Error(`Bad Request - List ${this.props.listName} does not have required columns (Title, Description, SortOrder)`));
         }
       })
       .then((response: { value: IAccordionListItem[] }): void => {
-        
-        
+
+
         let listItemsCollection = [...response.value];
 
         this.setState({
@@ -116,17 +116,17 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         });
       });
 
-  }  
+  }
 
   public componentWillUpdate() {
 
   }
 
   public render(): React.ReactElement<IReactAccordionProps> {
-    if(this.props.listName !== this.state.listName) {
+    if (this.props.listName !== this.state.listName) {
       let _listName = this.props.listName;
       this.props.updateListName();
-      this.setState({listName: _listName});
+      this.setState({ listName: _listName });
       //this.listNameChange(this);
       this.readItems();
     }
@@ -143,7 +143,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       let listItemsCollection = [...listData];
       this.setState({ items: listItemsCollection.splice(startIndex, pageCountDivisor) });
     };
-      
+
     const items: JSX.Element[] = this.state.items.map((item: IAccordionListItem, i: number): JSX.Element => {
       return (
         <AccordionItem>
@@ -156,7 +156,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
           <AccordionItemBody className="accordion__body"
             answerBGColor={this.props.answerBackgroundColor}
             answerTextColor={this.props.answerTextColor}>
-            <div className="" dangerouslySetInnerHTML={{ __html: item.Description}}>
+            <div className="" dangerouslySetInnerHTML={{ __html: item.Description }}>
             </div>
           </AccordionItemBody>
         </AccordionItem>
@@ -178,19 +178,21 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       pageCount = Math.ceil(this.state.listItems.length / pageCountDivisor);
     }
     for (let i = 0; i < pageCount; i++) {
-      pageButtons.push(<PrimaryButton style={{backgroundColor: this.props.headerBackgroundColor, color: this.props.headerTextColor}} onClick={() => { _pagedButtonClick(i + 1, listItems); }}> {i + 1} </PrimaryButton>);
+      pageButtons.push(<PrimaryButton style={{ backgroundColor: this.props.headerBackgroundColor, color: this.props.headerTextColor }} onClick={() => { _pagedButtonClick(i + 1, listItems); }}> {i + 1} </PrimaryButton>);
     }
     return (
       <div className={styles.reactAccordion}>
         <div className={styles.container}>
           {faqTitle}
           {displayLoader}
-          <WebPartTitleExtended displayMode={this.props.displayMode}
+          {/* <div>{this.props.title}</div> */}
+          <WebPartTitleWithStyles displayMode={this.props.displayMode}
             title={this.props.title}
             updateProperty={this.props.updateProperty}
             titleBGColor={this.props.headerBackgroundColor}
             titleTextColor={this.props.headerTextColor}
             className={styles.webpartTitle}
+            BGColor={this.props.headerBackgroundColor}
           />
           <div className='ms-Grid-row'>
             <div className='ms-Grid-col ms-u-lg12'>
