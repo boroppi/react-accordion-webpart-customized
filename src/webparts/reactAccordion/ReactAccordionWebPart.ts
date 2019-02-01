@@ -10,9 +10,9 @@ import {
   IPropertyPaneDropdownOption,
   PropertyPaneButton
 } from '@microsoft/sp-webpart-base';
-import { 
+import {
   PropertyFieldColorPicker,
-  PropertyFieldColorPickerStyle 
+  PropertyFieldColorPickerStyle
 } from '@pnp/spfx-property-controls/lib/PropertyFieldColorPicker';
 
 import * as strings from 'ReactAccordionWebPartStrings';
@@ -45,13 +45,13 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
   public render(): void {
     const element: React.ReactElement<IReactAccordionProps> = React.createElement(
       ReactAccordion,
-      {  
+      {
         headerBackgroundColor: this.properties.headerBackgroundColor,
         headerTextColor: this.properties.headerTextColor,
-        questionBackgroundColor: this.properties.questionBackgroundColor,  
+        questionBackgroundColor: this.properties.questionBackgroundColor,
         questionTextColor: this.properties.questionTextColor,
-        answerBackgroundColor: this.properties.answerBackgroundColor,  
-        answerTextColor: this.properties.answerTextColor,      
+        answerBackgroundColor: this.properties.answerBackgroundColor,
+        answerTextColor: this.properties.answerTextColor,
         listName: this.properties.listName,
         spHttpClient: this.context.spHttpClient,
         siteUrl: this.context.pageContext.web.absoluteUrl,
@@ -62,16 +62,14 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
           this.properties.title = value;
         },
         updateListName: () => {
-          this.render();          
+          this.render();
         }
       }
     );
 
     ReactDom.render(element, this.domElement);
-   
-   
   }
-  
+
   protected onDispose(): void {
     ReactDom.unmountComponentAtNode(this.domElement);
   }
@@ -80,7 +78,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
     return Version.parse('1.0');
   }
 
-  
+
   private _getListData(): Promise<ISPLists> {
     let restAPI = this.context.pageContext.web.absoluteUrl + `/_api/web/lists?$filter=Hidden eq false`;
     return this.context.spHttpClient.get(restAPI, SPHttpClient.configurations.v1)
@@ -91,30 +89,30 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
 
   private _loadSPLists(): Promise<IPropertyPaneDropdownOption[]> {
     return new Promise<IPropertyPaneDropdownOption[]>((resolve: (options: IPropertyPaneDropdownOption[]) => void, reject: (error: any) => void) => {
-      
-        this._getListData().then((data) => {
-          var list = [];
-            data.value.map((item,i) => {
-                 list.push({key: item.Title, text: item.Title});
-            });
-            resolve(list);
+
+      this._getListData().then((data) => {
+        var list = [];
+        data.value.map((item, i) => {
+          list.push({ key: item.Title, text: item.Title });
         });
+        resolve(list);
+      });
     });
   }
 
   protected onPropertyPaneConfigurationStart(): void {
-  
+
     if (this.lists) {
       return;
     }
-    this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'lists'); 
+    this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'lists');
     this._loadSPLists()
-     .then((listOptions: IPropertyPaneDropdownOption[]): void => {
-       this.lists = listOptions;
-       this.context.propertyPane.refresh();
-       this.context.statusRenderer.clearLoadingIndicator(this.domElement);
-       this.render();
-     });
+      .then((listOptions: IPropertyPaneDropdownOption[]): void => {
+        this.lists = listOptions;
+        this.context.propertyPane.refresh();
+        this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+        this.render();
+      });
   }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -127,10 +125,12 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-              
+                PropertyPaneTextField('title', {
+                  label: 'Title'
+                }),
                 PropertyPaneDropdown('listName', {
-                  label: 'Dropdown',
-                  options: this.lists                  
+                  label: 'List name',
+                  options: this.lists
                 }),
                 PropertyPaneSlider('maxItemsPerPage', {
                   label: strings.MaxItemsPerPageLabel,
@@ -140,7 +140,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
                   value: 5,
                   showValue: true,
                   step: 1
-                })              
+                })
               ]
             }
           ]

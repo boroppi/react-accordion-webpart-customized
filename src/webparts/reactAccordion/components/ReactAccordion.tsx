@@ -17,11 +17,9 @@ import {
 import 'react-accessible-accordion/dist/react-accessible-accordion.css';
 import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
-import { WebPartTitle } from "@pnp/spfx-controls-react/lib/WebPartTitle";
-import WebPartTitleWithStyles from "../WebPartTitleExtended";
+
 import './accordion.css';
-import { PropertyPaneSlider } from '@microsoft/sp-webpart-base';
-import { values } from '@uifabric/utilities/lib';
+
 
 export default class ReactAccordion extends React.Component<IReactAccordionProps, IReactAccordionState> {
 
@@ -177,22 +175,28 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     if (this.state.listItems.length > 0) {
       pageCount = Math.ceil(this.state.listItems.length / pageCountDivisor);
     }
+
     for (let i = 0; i < pageCount; i++) {
       pageButtons.push(<PrimaryButton style={{ backgroundColor: this.props.headerBackgroundColor, color: this.props.headerTextColor }} onClick={() => { _pagedButtonClick(i + 1, listItems); }}> {i + 1} </PrimaryButton>);
+    }
+    //console.log('BGcolor', this.props.headerBackgroundColor);
+    const titleStyle = {
+      backgroundColor: this.props.headerBackgroundColor,
+      color: this.props.headerTextColor
     }
     return (
       <div className={styles.reactAccordion}>
         <div className={styles.container}>
           {faqTitle}
           {displayLoader}
-          {/* <div>{this.props.title}</div> */}
-          <WebPartTitleWithStyles displayMode={this.props.displayMode}
+          <div className={styles.webpartTitle} style={titleStyle}>{this.props.title}</div>
+          {/* <WebPartTitleWithStyles displayMode={this.props.displayMode}
             title={this.props.title}
             updateProperty={this.props.updateProperty}     
             className={styles.webpartTitle}
             titleBGColor={this.props.headerBackgroundColor}
             titleTextColor={this.props.headerTextColor}
-          />
+          /> */}
           <div className='ms-Grid-row'>
             <div className='ms-Grid-col ms-u-lg12'>
               <SearchBox
