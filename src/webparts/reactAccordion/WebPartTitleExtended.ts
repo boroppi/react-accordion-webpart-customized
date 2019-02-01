@@ -17,6 +17,8 @@ export default class WebPartTitleWithStyles extends React.Component < IWebPartTi
 
   constructor(props: IWebPartTitleWithStylesProps) {     
     super(props);
+    // need to bind it in order to make it work as expected.
+    this.onChange = this.onChange.bind(this);
   }
 
   private onChange(event) {
@@ -32,7 +34,7 @@ export default class WebPartTitleWithStyles extends React.Component < IWebPartTi
       return React.createElement(
         "div", {
           updateProperty: this.props.updateProperty,
-          title: this.props.title,        
+          title: this.props.title,
           displayMode: this.props.displayMode,
           className: WebPartTitle_module_scss_1.default.webPartTitle +
             " " +
