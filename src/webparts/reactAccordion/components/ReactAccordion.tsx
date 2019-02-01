@@ -188,11 +188,10 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
           {/* <div>{this.props.title}</div> */}
           <WebPartTitleWithStyles displayMode={this.props.displayMode}
             title={this.props.title}
-            updateProperty={this.props.updateProperty}
+            updateProperty={this.props.updateProperty}     
+            className={styles.webpartTitle}
             titleBGColor={this.props.headerBackgroundColor}
             titleTextColor={this.props.headerTextColor}
-            className={styles.webpartTitle}
-            BGColor={this.props.headerBackgroundColor}
           />
           <div className='ms-Grid-row'>
             <div className='ms-Grid-col ms-u-lg12'>
