@@ -1,6 +1,5 @@
 import { SPHttpClient } from '@microsoft/sp-http';
 import { DisplayMode } from '@microsoft/sp-core-library';
-import { ISPList, ISPLists } from '../models/ISPList';
 
 export interface IReactAccordionProps {
   headerBackgroundColor: string;
@@ -17,4 +16,5 @@ export interface IReactAccordionProps {
   maxItemsPerPage: number;
   updateProperty: (value: string) => void;
   updateListName: () => void;
+  updateExpanded: () => void;
 }

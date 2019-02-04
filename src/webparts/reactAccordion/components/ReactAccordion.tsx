@@ -10,13 +10,14 @@ import {
 } from 'office-ui-fabric-react/lib/Spinner';
 import {
   Accordion,
-  AccordionItem,
-  AccordionItemTitle,
-  AccordionItemBody,
+  AccordionItem
 } from 'react-accessible-accordion';
+
 import 'react-accessible-accordion/dist/react-accessible-accordion.css';
 import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
+import { AccordionItemTitle } from './AccordionItemTitle/AccordionItemTitle';
+import { AccordionItemBody } from './AccordionItemBody/AccordionItemBody';
 
 import './accordion.css';
 
@@ -41,9 +42,6 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     this.searchTextChange = this.searchTextChange.bind(this);
     this.listNameChange = this.listNameChange.bind(this);
   }
-
-
-
 
   private listNotConfigured(props: IReactAccordionProps): boolean {
     return props.listName === undefined ||
@@ -125,7 +123,6 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       let _listName = this.props.listName;
       this.props.updateListName();
       this.setState({ listName: _listName });
-      //this.listNameChange(this);
       this.readItems();
     }
     console.log("ASDSADASD");
@@ -145,15 +142,13 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     const items: JSX.Element[] = this.state.items.map((item: IAccordionListItem, i: number): JSX.Element => {
       return (
         <AccordionItem>
-          <AccordionItemTitle className={"accordion__title"}
-            questionBGColor={this.props.questionBackgroundColor}
-            questionTextColor={this.props.questionTextColor}>
+          <AccordionItemTitle id={`accordion__title-${i}`} className={"accordion__title"}
+            onExpandedChange={this.props.updateExpanded}>
             <h3 className="u-position-relative">{item.Title}</h3>
             <div className="accordion__arrow" role="presentation" />
           </AccordionItemTitle>
-          <AccordionItemBody className="accordion__body"
-            answerBGColor={this.props.answerBackgroundColor}
-            answerTextColor={this.props.answerTextColor}>
+          <AccordionItemBody onExpandedChange={this.props.updateExpanded} updateExpanded={this.props.updateExpanded}
+            id={`accordion__body-${i}`} className={"accordion__body"}>
             <div className="" dangerouslySetInnerHTML={{ __html: item.Description }}>
             </div>
           </AccordionItemBody>
@@ -179,24 +174,18 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     for (let i = 0; i < pageCount; i++) {
       pageButtons.push(<PrimaryButton style={{ backgroundColor: this.props.headerBackgroundColor, color: this.props.headerTextColor }} onClick={() => { _pagedButtonClick(i + 1, listItems); }}> {i + 1} </PrimaryButton>);
     }
-    //console.log('BGcolor', this.props.headerBackgroundColor);
+
     const titleStyle = {
       backgroundColor: this.props.headerBackgroundColor,
       color: this.props.headerTextColor
-    }
+    };
+
     return (
       <div className={styles.reactAccordion}>
         <div className={styles.container}>
           {faqTitle}
           {displayLoader}
           <div className={styles.webpartTitle} style={titleStyle}>{this.props.title}</div>
-          {/* <WebPartTitleWithStyles displayMode={this.props.displayMode}
-            title={this.props.title}
-            updateProperty={this.props.updateProperty}     
-            className={styles.webpartTitle}
-            titleBGColor={this.props.headerBackgroundColor}
-            titleTextColor={this.props.headerTextColor}
-          /> */}
           <div className='ms-Grid-row'>
             <div className='ms-Grid-col ms-u-lg12'>
               <SearchBox

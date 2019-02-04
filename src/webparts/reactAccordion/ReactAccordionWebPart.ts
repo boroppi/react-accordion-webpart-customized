@@ -63,6 +63,9 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         },
         updateListName: () => {
           this.render();
+        },
+        updateExpanded: () => {
+          console.log('update expanded');
         }
       }
     );
