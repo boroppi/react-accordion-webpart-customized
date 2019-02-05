@@ -16,9 +16,7 @@ import {
 import 'react-accessible-accordion/dist/react-accessible-accordion.css';
 import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
-import { AccordionItemTitle } from './AccordionItemTitle/AccordionItemTitle';
-import { AccordionItemBody } from './AccordionItemBody/AccordionItemBody';
-
+import { AccordionWrapper } from "./AccordionWrapper";
 import './accordion.css';
 
 
@@ -142,16 +140,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     const items: JSX.Element[] = this.state.items.map((item: IAccordionListItem, i: number): JSX.Element => {
       return (
         <AccordionItem>
-          <AccordionItemTitle id={`accordion__title-${i}`} className={"accordion__title"}
-            onExpandedChange={this.props.updateExpanded}>
-            <h3 className="u-position-relative">{item.Title}</h3>
-            <div className="accordion__arrow" role="presentation" />
-          </AccordionItemTitle>
-          <AccordionItemBody onExpandedChange={this.props.updateExpanded} updateExpanded={this.props.updateExpanded}
-            id={`accordion__body-${i}`} className={"accordion__body"}>
-            <div className="" dangerouslySetInnerHTML={{ __html: item.Description }}>
-            </div>
-          </AccordionItemBody>
+          <AccordionWrapper id={i} item={item} />
         </AccordionItem>
       );
     });

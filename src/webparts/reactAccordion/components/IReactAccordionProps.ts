@@ -16,5 +16,4 @@ export interface IReactAccordionProps {
   maxItemsPerPage: number;
   updateProperty: (value: string) => void;
   updateListName: () => void;
-  updateExpanded: () => void;
 }
