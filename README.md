@@ -7,15 +7,10 @@ This is what the webpart look like:
 
 This webpart is a customized version of the sample react accordion plugin by microsoft which can be found here:
 
-* [React Accordion] 
-(https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-accordion)
-
-
-
+* [React Accordion](https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-accordion)
 
 
 ## Using React Accordion plugin with SPFx
-
 
 
 ## Disclaimer
