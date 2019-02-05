@@ -118,7 +118,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneGeneralDescription
           },
           groups: [
             {
@@ -146,7 +146,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         },
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneHeaderStylesDescription
           },
           groups: [
             {
@@ -182,7 +182,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         },
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneQuestionStylesDescription
           },
           groups: [
             {
@@ -218,7 +218,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         },
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: strings.PropertyPaneAnswerStylesDescription
           },
           groups: [
             {

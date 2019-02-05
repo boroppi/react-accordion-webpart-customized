@@ -1,5 +1,8 @@
 declare interface IReactAccordionWebPartStrings {
-  PropertyPaneDescription: string;
+  PropertyPaneGeneralDescription: string;
+  PropertyPaneHeaderStylesDescription: string;
+  PropertyPaneQuestionStylesDescription: string;
+  PropertyPaneAnswerStylesDescription: string;
   BasicGroupName: string;
   ListNameLabel: string;
   MaxItemsPerPageLabel: string;

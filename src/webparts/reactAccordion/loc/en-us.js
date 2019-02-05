@@ -1,7 +1,10 @@
 define([], function () {
   return {
-    "PropertyPaneDescription": "Description",
-    "BasicGroupName": "Group Name",
+    "PropertyPaneGeneralDescription": "Configure this web part's general settings",
+    "PropertyPaneHeaderStylesDescription": "Configure header style on this page, select colours from the colour pickers.",
+    "PropertyPaneQuestionStylesDescription": "Configure question style on this page, select colours from the colour pickers.",
+    "PropertyPaneAnswerStylesDescription": "Configure answer style on this page, select colours from the colour pickers.",
+    "BasicGroupName": "General",
     "HeaderGroupName": "Header and Button Style",
     "QuestionGroupName": "Question Style",
     "AnswerGroupName": "Answer Style",
