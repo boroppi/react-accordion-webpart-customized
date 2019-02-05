@@ -28,6 +28,10 @@
       "maxItemsPerPage": 5,
       "headerBackgroundColor": "#000047",
       "headerTextColor": "#ffffff",
+      "questionBackgroundColor": "#ffffff",
+      "questionTextColor": "#000000",
+      "answerBackgroundColor": "#ffffff",
+      "answerTextColor": "#000000",
       "title": "Enter a title..."
     }
   }]
