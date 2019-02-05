@@ -6,6 +6,7 @@ export interface IAccordionItemTitleProps {
     className: string;
     id: string | number;
     expanded: boolean;
+    onClick: () => void;
 }
 
 
@@ -13,25 +14,24 @@ export class AccordionItemTitle extends React.Component<IAccordionItemTitleProps
 
     constructor(props: IAccordionItemTitleProps) {
         super(props);
-
     }
 
     public render(): React.ReactElement<IAccordionItemTitleProps> {
         var children = this.props.children;
         var role = 'button';
+        let { bgColor, textColor, className, id, expanded } = this.props;
 
-        return React.createElement(
-            'div',
-            {
-                id: this.props.id,
-                expanded: this.props.expanded,
-                'aria-expanded': this.props.expanded,
-                'aria-controls': `accordion__body-${this.props.id.toString().split('-')[1]}`,
-                className: this.props.className,
-                role: role,
-            },
-            children
+        return (
+            <div id={`${this.props.id}`}
+                onClick={this.props.onClick}
+                style={{ backgroundColor: bgColor, color: textColor }}
+                className={className}
+                aria-expanded={expanded}
+                aria-controls={`accordion__body-${id}`.split('-')[1]}
+                role={role}
+            >
+                {children}
+            </div>
         );
     }
-
 }

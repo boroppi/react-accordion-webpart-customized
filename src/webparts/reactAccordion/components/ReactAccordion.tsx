@@ -18,6 +18,7 @@ import { IReactAccordionState } from "./IReactAccordionState";
 import IAccordionListItem from "../models/IAccordionListItem";
 import { AccordionWrapper } from "./AccordionWrapper";
 import './accordion.css';
+import IAccordionStyles from '../models/IAccordionStyles';
 
 
 export default class ReactAccordion extends React.Component<IReactAccordionProps, IReactAccordionState> {
@@ -137,10 +138,24 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       this.setState({ items: listItemsCollection.splice(startIndex, pageCountDivisor) });
     };
 
+    const {
+      questionBackgroundColor,
+      questionTextColor,
+      answerBackgroundColor,
+      answerTextColor
+    } = this.props;
+
+    const accordionStyles: IAccordionStyles = {
+      questionBGColor: questionBackgroundColor,
+      questionTextColor: questionTextColor,
+      answerBGColor: answerBackgroundColor,
+      answerTextColor: answerTextColor
+    };
+
     const items: JSX.Element[] = this.state.items.map((item: IAccordionListItem, i: number): JSX.Element => {
       return (
         <AccordionItem>
-          <AccordionWrapper id={i} item={item} />
+          <AccordionWrapper styles={accordionStyles} id={i} item={item} />
         </AccordionItem>
       );
     });

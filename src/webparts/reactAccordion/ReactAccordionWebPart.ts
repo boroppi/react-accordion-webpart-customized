@@ -35,7 +35,6 @@ export interface IReactAccordionWebPartProps {
   displayMode: DisplayMode;
   maxItemsPerPage: number;
   updateProperty: (value: string) => void;
-  updateListName: () => void;
 }
 
 
