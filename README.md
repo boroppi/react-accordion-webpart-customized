@@ -2,12 +2,13 @@
 
 This is what the webpart look like:
 
-![Web Part built using SPFx with React Framework showing list data in accordion format](./assets/previewAccordion2.png)
+![Web Part built using SPFx with React Framework showing list data in accordion format](./assets/previewAccordion2.PNG)
 
 
 This webpart is a customized version of the sample react accordion plugin by microsoft which can be found here:
 
 * [React Accordion](https://github.com/SharePoint/sp-dev-fx-webparts/tree/master/samples/react-accordion)
+
 
 
 ## Using React Accordion plugin with SPFx
