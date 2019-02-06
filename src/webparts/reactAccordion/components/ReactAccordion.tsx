@@ -39,17 +39,12 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
     }
 
     this.searchTextChange = this.searchTextChange.bind(this);
-    this.listNameChange = this.listNameChange.bind(this);
   }
 
   private listNotConfigured(props: IReactAccordionProps): boolean {
     return props.listName === undefined ||
       props.listName === null ||
       props.listName.length === 0;
-  }
-
-  private listNameChange(event) {
-    this.readItems();
   }
 
   private searchTextChange(event) {
@@ -84,8 +79,6 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         if (response.status === 200)
           return response.json();
         else {
-          console.error("Error", response.status);
-
           return Promise.reject(new Error(`Bad Request - List ${this.props.listName} does not have required columns (Title, Description, SortOrder)`));
         }
       })
@@ -113,17 +106,16 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
 
   }
 
-  public componentWillUpdate() {
-
-  }
 
   public render(): React.ReactElement<IReactAccordionProps> {
+
     if (this.props.listName !== this.state.listName) {
       let _listName = this.props.listName;
       this.props.updateListName();
       this.setState({ listName: _listName });
       this.readItems();
     }
+
     console.log("ASDSADASD");
     let displayLoader;
     let faqTitle;

@@ -8,7 +8,8 @@ import {
   PropertyPaneSlider,
   PropertyPaneDropdown,
   IPropertyPaneDropdownOption,
-  PropertyPaneButton
+  PropertyPaneButton,
+  PropertyPaneDropdownOptionType
 } from '@microsoft/sp-webpart-base';
 import {
   PropertyFieldColorPicker,
@@ -34,7 +35,6 @@ export interface IReactAccordionWebPartProps {
   title: string;
   displayMode: DisplayMode;
   maxItemsPerPage: number;
-  updateProperty: (value: string) => void;
 }
 
 
@@ -57,15 +57,11 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         title: this.properties.title,
         displayMode: this.displayMode,
         maxItemsPerPage: this.properties.maxItemsPerPage,
-        updateProperty: (value: string) => {
-          this.properties.title = value;
-        },
         updateListName: () => {
           this.render();
         }
       }
     );
-
     ReactDom.render(element, this.domElement);
   }
 
@@ -113,6 +109,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<IReactA
         this.render();
       });
   }
+
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
