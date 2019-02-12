@@ -49,7 +49,7 @@ This sample illustrates the following concepts on top of the SharePoint Framewor
   - searching in the fetched data by making use of Search Box from Office Fabric UI
 
 
-<img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-accordion" />
+### Add updated image
 
 ### Build options
 
@@ -58,5 +58,3 @@ gulp test - TODO
 gulp serve - TODO
 gulp bundle - TODO
 gulp package-solution - TODO
-
-First Update
