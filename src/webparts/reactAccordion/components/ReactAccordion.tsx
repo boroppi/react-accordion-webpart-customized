@@ -67,6 +67,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
   }
 
   private readItems(): void {
+    this.setState({isLoading: true});
     let restAPI = this.props.siteUrl + `/_api/web/Lists/GetByTitle('${this.props.listName}')/items?$select=Title,Description,SortOrder&$orderby=SortOrder`;
 
     this.props.spHttpClient.get(restAPI, SPHttpClient.configurations.v1, {
@@ -83,10 +84,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
         }
       })
       .then((response: { value: IAccordionListItem[] }): void => {
-
-
         let listItemsCollection = [...response.value];
-
         this.setState({
           status: "",
           items: listItemsCollection.splice(0, this.props.maxItemsPerPage),
@@ -106,7 +104,6 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
 
   }
 
-
   public render(): React.ReactElement<IReactAccordionProps> {
 
     if (this.props.listName !== this.state.listName) {
@@ -116,7 +113,7 @@ export default class ReactAccordion extends React.Component<IReactAccordionProps
       this.readItems();
     }
 
-    console.log("ASDSADASD");
+    //console.log("ASDSADASD");
     let displayLoader;
     let faqTitle;
     let { listItems } = this.state;
