@@ -1,5 +1,5 @@
-.accordion__title>*:last-child,
-.accordion__body>*:last-child {
+.accordion__title > *:last-child,
+.accordion__body > *:last-child {
   margin-bottom: 0;
 }
 
@@ -8,8 +8,8 @@
   position: relative;
   width: 24px;
   height: 12px;
-  right: 10px;
-  margin-top: -12px;
+  /* right: 10px; */
+  margin-top: 12px;
   /* color: white !important; */
 
   float: right;
@@ -22,7 +22,7 @@
   width: 10px;
   height: 2px;
   background-color: currentColor;
-  content: '';
+  content: "";
 }
 
 .accordion__arrow::before {
@@ -45,10 +45,11 @@
 
 .accordion__arrow::before,
 .accordion__arrow::after {
-  transition: transform .25s ease, -webkit-transform .25s ease;
+  transition: transform 0.25s ease, -webkit-transform 0.25s ease;
 }
 
-.accordion__item {}
+.accordion__item {
+}
 
 .accordion {
   padding-top: 10px;
@@ -59,6 +60,8 @@
   background-color: "[theme: themePrimary, default: #0078d7]";
   border-bottom: 1px solid #c0c0c0;
   font-size: 1.05rem;
+  display: flex;
+  align-items: center;
 }
 
 .accordion__item .accordion__title:hover {
@@ -84,7 +87,6 @@
 .accordion__item .accordion__body p {
   /* color: "[theme: bodyText, default: #333333]"; */
 }
-
 
 /* -------------------------------------------------- */
 /* ---------------- Animation part ------------------ */

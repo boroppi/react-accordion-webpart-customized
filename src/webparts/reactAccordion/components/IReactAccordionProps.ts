@@ -1,5 +1,5 @@
-import { SPHttpClient } from '@microsoft/sp-http';
-import { DisplayMode } from '@microsoft/sp-core-library';
+import { SPHttpClient } from "@microsoft/sp-http";
+import { DisplayMode } from "@microsoft/sp-core-library";
 
 export interface IReactAccordionProps {
   headerBackgroundColor: string;
@@ -14,5 +14,6 @@ export interface IReactAccordionProps {
   title: string;
   displayMode: DisplayMode;
   maxItemsPerPage: number;
+  maxItemsToFetchFromTheList: number;
   updateListName: () => void;
 }

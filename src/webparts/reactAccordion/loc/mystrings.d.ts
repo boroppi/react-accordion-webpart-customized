@@ -6,12 +6,13 @@ declare interface IReactAccordionWebPartStrings {
   BasicGroupName: string;
   ListNameLabel: string;
   MaxItemsPerPageLabel: string;
+  MaxItemsToFetchFromTheListLabel: string;
   HeaderGroupName: string;
   QuestionGroupName: string;
   AnswerGroupName: string;
 }
 
-declare module 'ReactAccordionWebPartStrings' {
+declare module "ReactAccordionWebPartStrings" {
   const strings: IReactAccordionWebPartStrings;
   export = strings;
 }
