@@ -3,33 +3,36 @@
   "id": "97a28c00-64ee-4ec7-b373-723e39069a96",
   "alias": "ListDrivenAccordionWebPart",
   "componentType": "WebPart",
-  
+
   "version": "*",
   "manifestVersion": 2,
   "requiresCustomScript": false,
-  "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
-    "group": {
-      "default": "Other"
-    },
-    "title": {
-      "default": "List Driven Accordion App"
-    },
-    "description": {
-      "default": "SPFx webpart which shows SharePoint list data (Title, Decription, SortOrder) in Accordion format"
-    },
-    "officeFabricIconFontName": "Questionnaire",
-    "properties": {
-      "description": "SPFx webpart which shows SharePoint list data in Accordion format",
-      "listName": "",
-      "maxItemsPerPage": 5,
-      "headerBackgroundColor": "#000047",
-      "headerTextColor": "#ffffff",
-      "questionBackgroundColor": "#ffffff",
-      "questionTextColor": "#000000",
-      "answerBackgroundColor": "#ffffff",
-      "answerTextColor": "#000000",
-      "title": "Enter a title..."
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70",
+      "group": {
+        "default": "Other"
+      },
+      "title": {
+        "default": "List Driven Accordion App"
+      },
+      "description": {
+        "default": "SPFx webpart which shows SharePoint list data (Title, Decription, SortOrder) in Accordion format"
+      },
+      "officeFabricIconFontName": "Questionnaire",
+      "properties": {
+        "description": "SPFx webpart which shows SharePoint list data in Accordion format",
+        "listName": "",
+        "maxItemsPerPage": 5,
+        "maxItemsToFetchFromTheList": 5,
+        "headerBackgroundColor": "#000047",
+        "headerTextColor": "#ffffff",
+        "questionBackgroundColor": "#ffffff",
+        "questionTextColor": "#000000",
+        "answerBackgroundColor": "#ffffff",
+        "answerTextColor": "#000000",
+        "title": "Enter a title..."
+      }
     }
-  }]
+  ]
 }
