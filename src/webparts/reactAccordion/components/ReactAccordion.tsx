@@ -52,10 +52,6 @@ export default class ReactAccordion extends React.Component<
       this.props.maxItemsToFetchFromTheList !==
       nextProps.maxItemsToFetchFromTheList
     ) {
-      console.log(
-        this.props.maxItemsToFetchFromTheList,
-        nextProps.maxItemsToFetchFromTheList
-      );
       this.readItems(nextProps.maxItemsToFetchFromTheList);
     }
   }
@@ -88,7 +84,7 @@ export default class ReactAccordion extends React.Component<
 
   private readItems(nextLimit?: number): void {
     // Limits the api request to fetch only a specific number of records
-    const limit =
+    const limit: number =
       nextLimit === undefined
         ? this.props.maxItemsToFetchFromTheList
         : nextLimit;
