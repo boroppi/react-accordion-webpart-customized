@@ -1,4 +1,4 @@
-import IAccordionListItem from '../models/IAccordionListItem';
+import IAccordionListItem from "../models/IAccordionListItem";
 
 export interface IReactAccordionState {
   status: string;

@@ -17,6 +17,7 @@ import IAccordionListItem from "../models/IAccordionListItem";
 import { AccordionWrapper } from "./AccordionWrapper";
 import "./accordion.css";
 import IAccordionStyles from "../models/IAccordionStyles";
+import { IAccordionItemBodyProps } from "./AccordionItemBody";
 
 export default class ReactAccordion extends React.Component<
   IReactAccordionProps,
@@ -35,11 +36,28 @@ export default class ReactAccordion extends React.Component<
       listName: this.props.listName
     };
 
+    this.readItems = this.readItems.bind(this);
+
     if (!this.listNotConfigured(this.props)) {
       this.readItems();
     }
 
     this.searchTextChange = this.searchTextChange.bind(this);
+  }
+
+  // Using this life cycle method to check if the slider value for max items to fetch is changed
+  // And then calling the readItems method to update the state of the component
+  public componentWillReceiveProps(nextProps: IReactAccordionProps): void {
+    if (
+      this.props.maxItemsToFetchFromTheList !==
+      nextProps.maxItemsToFetchFromTheList
+    ) {
+      console.log(
+        this.props.maxItemsToFetchFromTheList,
+        nextProps.maxItemsToFetchFromTheList
+      );
+      this.readItems(nextProps.maxItemsToFetchFromTheList);
+    }
   }
 
   private listNotConfigured(props: IReactAccordionProps): boolean {
@@ -68,9 +86,12 @@ export default class ReactAccordion extends React.Component<
     }
   }
 
-  private readItems(): void {
+  private readItems(nextLimit?: number): void {
     // Limits the api request to fetch only a specific number of records
-    const { maxItemsToFetchFromTheList: limit } = this.props;
+    const limit =
+      nextLimit === undefined
+        ? this.props.maxItemsToFetchFromTheList
+        : nextLimit;
 
     this.setState({ isLoading: true });
     let restAPI =

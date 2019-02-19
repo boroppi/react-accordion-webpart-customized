@@ -9,7 +9,8 @@ import {
   PropertyPaneDropdown,
   IPropertyPaneDropdownOption,
   PropertyPaneButton,
-  PropertyPaneDropdownOptionType
+  PropertyPaneDropdownOptionType,
+  PropertyPaneButtonType
 } from "@microsoft/sp-webpart-base";
 import {
   PropertyFieldColorPicker,
