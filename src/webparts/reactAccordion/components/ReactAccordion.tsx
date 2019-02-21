@@ -50,7 +50,8 @@ export default class ReactAccordion extends React.Component<
   public componentWillReceiveProps(nextProps: IReactAccordionProps): void {
     if (
       this.props.maxItemsToFetchFromTheList !==
-      nextProps.maxItemsToFetchFromTheList
+        nextProps.maxItemsToFetchFromTheList ||
+      this.props.maxItemsPerPage !== nextProps.maxItemsPerPage
     ) {
       this.readItems(nextProps.maxItemsToFetchFromTheList);
     }

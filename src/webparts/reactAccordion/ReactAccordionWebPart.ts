@@ -143,7 +143,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                 PropertyPaneSlider("maxItemsToFetchFromTheList", {
                   label: strings.MaxItemsToFetchFromTheListLabel,
                   ariaLabel: strings.MaxItemsToFetchFromTheListLabel,
-                  min: 5,
+                  min: 3,
                   max: 20,
                   value: 5,
                   showValue: true,
