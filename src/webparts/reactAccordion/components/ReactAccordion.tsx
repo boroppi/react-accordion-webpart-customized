@@ -33,7 +33,8 @@ export default class ReactAccordion extends React.Component<
       listItems: [],
       isLoading: false,
       loaderMessage: "",
-      listName: this.props.listName
+      listName: this.props.listName,
+      activeButtonIndex: 0
     };
 
     this.readItems = this.readItems.bind(this);
@@ -43,6 +44,7 @@ export default class ReactAccordion extends React.Component<
     }
 
     this.searchTextChange = this.searchTextChange.bind(this);
+    this.handleActiveButtonChanges = this.handleActiveButtonChanges.bind(this);
 
     // TESTING CREATING DYNAMIC CLASSES
     let styleCreatedBefore: boolean = false;
@@ -166,6 +168,13 @@ export default class ReactAccordion extends React.Component<
       );
   }
 
+  private handleActiveButtonChanges(index: number): string {
+    if (index !== this.state.activeButtonIndex) {
+      return "customBtnStyle";
+    }
+    return "";
+  }
+
   public render(): React.ReactElement<IReactAccordionProps> {
     if (this.props.listName !== this.state.listName) {
       let _listName = this.props.listName;
@@ -182,10 +191,13 @@ export default class ReactAccordion extends React.Component<
     let pageButtons = [];
 
     let _pagedButtonClick = (pageNumber: number, listData: any) => {
+      let btnIndex = pageNumber - 1;
+
       let startIndex: number = (pageNumber - 1) * pageCountDivisor;
       let listItemsCollection = [...listData];
       this.setState({
-        items: listItemsCollection.splice(startIndex, pageCountDivisor)
+        items: listItemsCollection.splice(startIndex, pageCountDivisor),
+        activeButtonIndex: btnIndex
       });
     };
 
@@ -254,15 +266,13 @@ export default class ReactAccordion extends React.Component<
       }; color: ${this.props.headerTextColor};}`;
     }
 
+    console.log(this.props.headerBackgroundColor);
+
     for (let i = 0; i < pageCount; i++) {
       if (pageCount > 1)
         pageButtons.push(
           <PrimaryButton
-            /*   style={{
-              backgroundColor: this.props.headerBackgroundColor,
-              color: this.props.headerTextColor
-            }} */
-            className="customBtnStyle"
+            className={this.handleActiveButtonChanges(i)}
             onClick={() => {
               _pagedButtonClick(i + 1, listItems);
             }}

@@ -1,4 +1,5 @@
 import IAccordionListItem from "../models/IAccordionListItem";
+import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
 
 export interface IReactAccordionState {
   status: string;
@@ -7,4 +8,5 @@ export interface IReactAccordionState {
   isLoading: boolean;
   loaderMessage: string;
   listName: string;
+  activeButtonIndex: number;
 }
