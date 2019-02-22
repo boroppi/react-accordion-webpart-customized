@@ -9,10 +9,10 @@
   width: 24px;
   height: 12px;
   /* right: 10px; */
-  margin-top: 12px;
+  margin-top: 14px;
   /* color: white !important; */
-
-  float: right;
+  margin-left: 7%;
+  /* float: right; */
 }
 
 .accordion__arrow::after,

@@ -43,6 +43,29 @@ export default class ReactAccordion extends React.Component<
     }
 
     this.searchTextChange = this.searchTextChange.bind(this);
+
+    // TESTING CREATING DYNAMIC CLASSES
+    let styleCreatedBefore: boolean = false;
+    let styleElements: NodeListOf<Element> = document.querySelectorAll(
+      "style[type='text/css']"
+    );
+
+    [].forEach.call(styleElements, (styleElement: HTMLElement) => {
+      // If the style hasn't been created before
+      if (styleElement.innerHTML.indexOf(".customBtnStyle") !== -1) {
+        styleCreatedBefore = true;
+      }
+    });
+    if (styleCreatedBefore === false) {
+      let buttonStyle = document.createElement("style");
+      buttonStyle.type = "text/css";
+
+      buttonStyle.innerHTML = `.customBtnStyle { background-color: ${
+        this.props.headerBackgroundColor
+      }; color: ${this.props.headerTextColor};}`;
+      document.getElementsByTagName("head")[0].appendChild(buttonStyle);
+    }
+    console.log("Constructor is done", this);
   }
 
   // Using this life cycle method to check if the slider value for max items to fetch is changed
@@ -213,14 +236,33 @@ export default class ReactAccordion extends React.Component<
       pageCount = Math.ceil(this.state.listItems.length / pageCountDivisor);
     }
 
+    // TESTING CREATING DYNAMIC CLASSES
+
+    let styleElements = document
+      .getElementsByTagName("head")[0]
+      .querySelectorAll("style[type='text/css']");
+
+    let styleElement: HTMLElement = null;
+    [].forEach.call(styleElements, (element: HTMLElement) => {
+      if (element.innerHTML.indexOf(".customBtnStyle") !== -1)
+        styleElement = element;
+    });
+
+    if (styleElement !== undefined) {
+      styleElement.innerHTML = `.customBtnStyle { background-color: ${
+        this.props.headerBackgroundColor
+      }; color: ${this.props.headerTextColor};}`;
+    }
+
     for (let i = 0; i < pageCount; i++) {
       if (pageCount > 1)
         pageButtons.push(
           <PrimaryButton
-            style={{
+            /*   style={{
               backgroundColor: this.props.headerBackgroundColor,
               color: this.props.headerTextColor
-            }}
+            }} */
+            className="customBtnStyle"
             onClick={() => {
               _pagedButtonClick(i + 1, listItems);
             }}
