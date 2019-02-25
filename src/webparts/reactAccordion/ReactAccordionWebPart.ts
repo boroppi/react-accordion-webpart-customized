@@ -122,6 +122,21 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
     );
   }
 
+  protected onResetHeaderColorProperty = (): void => {
+    this.properties.headerBackgroundColor = "#000047";
+    this.properties.headerTextColor = "#ffffff";
+  };
+
+  protected onResetQuestionColorProperty = (): void => {
+    this.properties.questionBackgroundColor = "#ffffff";
+    this.properties.questionTextColor = "#000000";
+  };
+
+  protected onResetAnswerColorProperty = (): void => {
+    this.properties.answerBackgroundColor = "#ffffff";
+    this.properties.answerTextColor = "#000000";
+  };
+
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -193,6 +208,11 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   style: PropertyFieldColorPickerStyle.Full,
                   iconName: "Precipitation",
                   key: "headerTextColor"
+                }),
+                PropertyPaneButton("resetBtn", {
+                  onClick: this.onResetHeaderColorProperty,
+                  text: strings.ResetStyleButtonText,
+                  buttonType: PropertyPaneButtonType.Normal
                 })
               ]
             }
@@ -229,6 +249,11 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   style: PropertyFieldColorPickerStyle.Full,
                   iconName: "Precipitation",
                   key: "questionTextColor"
+                }),
+                PropertyPaneButton("resetBtn", {
+                  onClick: this.onResetQuestionColorProperty,
+                  text: strings.ResetStyleButtonText,
+                  buttonType: PropertyPaneButtonType.Normal
                 })
               ]
             }
@@ -265,6 +290,11 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   style: PropertyFieldColorPickerStyle.Full,
                   iconName: "Precipitation",
                   key: "answerTextColor"
+                }),
+                PropertyPaneButton("resetBtn", {
+                  onClick: this.onResetAnswerColorProperty,
+                  text: strings.ResetStyleButtonText,
+                  buttonType: PropertyPaneButtonType.Normal
                 })
               ]
             }

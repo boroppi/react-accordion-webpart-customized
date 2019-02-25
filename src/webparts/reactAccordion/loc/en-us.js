@@ -22,6 +22,7 @@ define([], function() {
     QuestionBackgroundColorLabel: "Question Background Colour",
     QuestionTextColorLabel: "Question Text Colour",
     AnswerBackgroundColorLabel: "Answer Background Colour",
-    AnswerTextColorLabel: "Answer Text Colour"
+    AnswerTextColorLabel: "Answer Text Colour",
+    ResetStyleButtonText: "Reset to Default"
   };
 });

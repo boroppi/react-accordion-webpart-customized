@@ -17,6 +17,7 @@ declare interface IReactAccordionWebPartStrings {
   QuestionTextColorLabel: string;
   AnswerBackgroundColorLabel: string;
   AnswerTextColorLabel: string;
+  ResetStyleButtonText: string;
 }
 
 declare module "ReactAccordionWebPartStrings" {
