@@ -134,10 +134,10 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField("title", {
-                  label: "Title"
+                  label: strings.TitleLabel
                 }),
                 PropertyPaneDropdown("listName", {
-                  label: "List name",
+                  label: strings.ListNameLabel,
                   options: this.lists
                 }),
                 PropertyPaneSlider("maxItemsToFetchFromTheList", {
@@ -171,7 +171,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
               groupName: strings.HeaderGroupName,
               groupFields: [
                 PropertyFieldColorPicker("headerBackgroundColor", {
-                  label: "Header Background Colour",
+                  label: strings.HeaderBackgroundColorLabel,
                   selectedColor: this.properties.headerBackgroundColor,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
                   properties: this.properties,
@@ -183,7 +183,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   key: "headerBackgroundColor"
                 }),
                 PropertyFieldColorPicker("headerTextColor", {
-                  label: "Header Text Colour",
+                  label: strings.HeaderTextColorLabel,
                   selectedColor: this.properties.headerTextColor,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
                   properties: this.properties,
@@ -207,7 +207,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
               groupName: strings.QuestionGroupName,
               groupFields: [
                 PropertyFieldColorPicker("questionBackgroundColor", {
-                  label: "Question Background Colour",
+                  label: strings.QuestionBackgroundColorLabel,
                   selectedColor: this.properties.questionBackgroundColor,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
                   properties: this.properties,
@@ -219,7 +219,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   key: "questionBackgroundColor"
                 }),
                 PropertyFieldColorPicker("questionTextColor", {
-                  label: "Question Text Colour",
+                  label: strings.QuestionTextColorLabel,
                   selectedColor: this.properties.questionTextColor,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
                   properties: this.properties,
@@ -243,7 +243,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
               groupName: strings.AnswerGroupName,
               groupFields: [
                 PropertyFieldColorPicker("answerBackgroundColor", {
-                  label: "Answer Background Colour",
+                  label: strings.AnswerBackgroundColorLabel,
                   selectedColor: this.properties.answerBackgroundColor,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
                   properties: this.properties,
@@ -255,7 +255,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   key: "answerBackgroundColor"
                 }),
                 PropertyFieldColorPicker("answerTextColor", {
-                  label: "Answer Text Colour",
+                  label: strings.AnswerTextColorLabel,
                   selectedColor: this.properties.answerTextColor,
                   onPropertyChange: this.onPropertyPaneFieldChanged,
                   properties: this.properties,

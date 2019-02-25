@@ -6,7 +6,10 @@ import {
   SPHttpClientResponse,
   ISPHttpClientOptions
 } from "@microsoft/sp-http";
-import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
+import {
+  PrimaryButton,
+  IButtonStyles
+} from "office-ui-fabric-react/lib/Button";
 import { SearchBox } from "office-ui-fabric-react/lib/SearchBox";
 import { Spinner, SpinnerSize } from "office-ui-fabric-react/lib/Spinner";
 import { Accordion, AccordionItem } from "react-accessible-accordion";
@@ -44,28 +47,6 @@ export default class ReactAccordion extends React.Component<
     }
 
     this.searchTextChange = this.searchTextChange.bind(this);
-    this.handleActiveButtonChanges = this.handleActiveButtonChanges.bind(this);
-
-    // TESTING CREATING DYNAMIC CLASSES
-    let styleCreatedBefore: boolean = false;
-    let styleElements: NodeListOf<Element> = document.querySelectorAll(
-      "style[type='text/css']"
-    );
-
-    [].forEach.call(styleElements, (styleElement: HTMLElement) => {
-      // If the style hasn't been created before
-      if (styleElement.innerHTML.indexOf(".customBtnStyle") !== -1) {
-        styleCreatedBefore = true;
-      }
-    });
-    if (styleCreatedBefore === false) {
-      let buttonStyle = document.createElement("style");
-      buttonStyle.type = "text/css";
-
-      buttonStyle.innerHTML = `.customBtnStyle { }`;
-      document.getElementsByTagName("head")[0].appendChild(buttonStyle);
-    }
-    console.log("Constructor is done", this);
   }
 
   // Using this life cycle method to check if the slider value for max items to fetch is changed
@@ -166,13 +147,6 @@ export default class ReactAccordion extends React.Component<
       );
   }
 
-  private handleActiveButtonChanges(index: number): string {
-    if (index !== this.state.activeButtonIndex) {
-      return "customBtnStyle";
-    }
-    return "customBtnStyle-active";
-  }
-
   public render(): React.ReactElement<IReactAccordionProps> {
     if (this.props.listName !== this.state.listName) {
       let _listName = this.props.listName;
@@ -246,27 +220,28 @@ export default class ReactAccordion extends React.Component<
       pageCount = Math.ceil(this.state.listItems.length / pageCountDivisor);
     }
 
-    // TESTING CREATING DYNAMIC CLASSES
+    // dynamic styles for the pagination buttons
+    const customBtnStyle: IButtonStyles = {
+      root: {
+        backgroundColor: this.props.headerBackgroundColor,
+        color: this.props.headerTextColor,
+        marginRight: "2px"
+      }
+    };
 
-    let styleElements = document
-      .getElementsByTagName("head")[0]
-      .querySelectorAll("style[type='text/css']");
-
-    let styleElement: HTMLElement = null;
-    [].forEach.call(styleElements, (element: HTMLElement) => {
-      if (element.innerHTML.indexOf(".customBtnStyle") !== -1)
-        styleElement = element;
-    });
-
-    if (styleElement !== undefined) {
-      styleElement.innerHTML = `.customBtnStyle { background-color: ${
-        this.props.headerBackgroundColor
-      }; color: ${
-        this.props.headerTextColor
-      }; margin-right: 2px; } .customBtnStyle-active {
-        color: black; background-color: silver; margin-right: 2px;
-      }`;
-    }
+    const customBtnStyle_active: IButtonStyles = {
+      root: {
+        backgroundColor: "silver",
+        color: "black",
+        marginRight: "2px"
+      }
+    };
+    let handleActiveButtonChanges = (index: number): IButtonStyles => {
+      if (index !== this.state.activeButtonIndex) {
+        return customBtnStyle;
+      }
+      return customBtnStyle_active;
+    };
 
     console.log(this.props.headerBackgroundColor);
 
@@ -274,7 +249,7 @@ export default class ReactAccordion extends React.Component<
       if (pageCount > 1)
         pageButtons.push(
           <PrimaryButton
-            className={this.handleActiveButtonChanges(i)}
+            styles={handleActiveButtonChanges(i)}
             onClick={() => {
               _pagedButtonClick(i + 1, listItems);
             }}

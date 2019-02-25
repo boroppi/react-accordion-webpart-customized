@@ -13,8 +13,15 @@ define([], function() {
     QuestionGroupName: "Question Style",
     AnswerGroupName: "Answer Style",
     ListNameLabel: "List Name",
+    TitleLabel: "Title",
     MaxItemsPerPageLabel: "Max number of items per page",
     MaxItemsToFetchFromTheListLabel:
-      "Max number of items to fetch from the list"
+      "Max number of items to fetch from the list",
+    HeaderBackgroundColorLabel: "Header Background Colour",
+    HeaderTextColorLabel: "Header Text Colour",
+    QuestionBackgroundColorLabel: "Question Background Colour",
+    QuestionTextColorLabel: "Question Text Colour",
+    AnswerBackgroundColorLabel: "Answer Background Colour",
+    AnswerTextColorLabel: "Answer Text Colour"
   };
 });
