@@ -3,6 +3,8 @@
   margin-bottom: 0;
 }
 
+/* custom button style for pagination buttons */
+
 .accordion__arrow {
   display: inline-block;
   position: relative;

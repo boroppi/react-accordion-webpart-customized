@@ -69,9 +69,6 @@
     cursor: pointer;
     display: inline-block;
     padding: 0 16px;
-    &:hover {
-      background-color: silver;
-    }
 
     .label {
       font-weight: $ms-font-weight-semibold;

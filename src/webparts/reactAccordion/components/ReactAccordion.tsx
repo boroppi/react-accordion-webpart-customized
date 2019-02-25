@@ -62,9 +62,7 @@ export default class ReactAccordion extends React.Component<
       let buttonStyle = document.createElement("style");
       buttonStyle.type = "text/css";
 
-      buttonStyle.innerHTML = `.customBtnStyle { background-color: ${
-        this.props.headerBackgroundColor
-      }; color: ${this.props.headerTextColor};}`;
+      buttonStyle.innerHTML = `.customBtnStyle { }`;
       document.getElementsByTagName("head")[0].appendChild(buttonStyle);
     }
     console.log("Constructor is done", this);
@@ -172,7 +170,7 @@ export default class ReactAccordion extends React.Component<
     if (index !== this.state.activeButtonIndex) {
       return "customBtnStyle";
     }
-    return "";
+    return "customBtnStyle-active";
   }
 
   public render(): React.ReactElement<IReactAccordionProps> {
@@ -263,7 +261,11 @@ export default class ReactAccordion extends React.Component<
     if (styleElement !== undefined) {
       styleElement.innerHTML = `.customBtnStyle { background-color: ${
         this.props.headerBackgroundColor
-      }; color: ${this.props.headerTextColor};}`;
+      }; color: ${
+        this.props.headerTextColor
+      }; margin-right: 2px; } .customBtnStyle-active {
+        color: black; background-color: silver; margin-right: 2px;
+      }`;
     }
 
     console.log(this.props.headerBackgroundColor);
