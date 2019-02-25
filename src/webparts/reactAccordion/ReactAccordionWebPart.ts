@@ -41,7 +41,7 @@ export interface IReactAccordionWebPartProps {
 
 export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   IReactAccordionWebPartProps
-> {
+  > {
   private lists: IPropertyPaneDropdownOption[];
 
   public render(): void {
@@ -125,17 +125,17 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   protected onResetHeaderColorProperty = (): void => {
     this.properties.headerBackgroundColor = "#000047";
     this.properties.headerTextColor = "#ffffff";
-  };
+  }
 
   protected onResetQuestionColorProperty = (): void => {
     this.properties.questionBackgroundColor = "#ffffff";
     this.properties.questionTextColor = "#000000";
-  };
+  }
 
   protected onResetAnswerColorProperty = (): void => {
     this.properties.answerBackgroundColor = "#ffffff";
     this.properties.answerTextColor = "#000000";
-  };
+  }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
