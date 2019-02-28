@@ -41,7 +41,7 @@ export interface IReactAccordionWebPartProps {
 
 export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   IReactAccordionWebPartProps
-  > {
+> {
   private lists: IPropertyPaneDropdownOption[];
 
   public render(): void {
@@ -76,6 +76,10 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
     return Version.parse("1.0");
   }
 
+  /***************************************************
+   * Fetches the lists that are on the sharepoint site
+   * @returns Promise<ISPLists>
+   **************************************************/
   private _getListData(): Promise<ISPLists> {
     let restAPI =
       this.context.pageContext.web.absoluteUrl +
@@ -87,6 +91,11 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
       });
   }
 
+  /***************************************************
+   * Returns propertypane dropdown options in key and value pairs to be used for
+   * property pane dropdown
+   * @returns Promise<IPropertyPaneDropdownOption[]>
+   **************************************************/
   private _loadSPLists(): Promise<IPropertyPaneDropdownOption[]> {
     return new Promise<IPropertyPaneDropdownOption[]>(
       (
@@ -122,20 +131,32 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
     );
   }
 
+  /***************************************************
+   * This method is called after reset to default button is clicked
+   * in properties pane
+   **************************************************/
   protected onResetHeaderColorProperty = (): void => {
     this.properties.headerBackgroundColor = "#000047";
     this.properties.headerTextColor = "#ffffff";
-  }
+  };
 
+  /***************************************************
+   * This method is called after reset to default button is clicked
+   * in properties pane
+   **************************************************/
   protected onResetQuestionColorProperty = (): void => {
     this.properties.questionBackgroundColor = "#ffffff";
     this.properties.questionTextColor = "#000000";
-  }
+  };
 
+  /***************************************************
+   * This method is called after reset to default button is clicked
+   * in properties pane
+   **************************************************/
   protected onResetAnswerColorProperty = (): void => {
     this.properties.answerBackgroundColor = "#ffffff";
     this.properties.answerTextColor = "#000000";
-  }
+  };
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {

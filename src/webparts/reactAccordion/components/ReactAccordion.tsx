@@ -49,8 +49,11 @@ export default class ReactAccordion extends React.Component<
     this.searchTextChange = this.searchTextChange.bind(this);
   }
 
-  // Using this life cycle method to check if the slider value for max items to fetch is changed
-  // And then calling the readItems method to update the state of the component
+  /***************************************************
+   * Using this life cycle method to check if the slider value for max items to fetch is changed
+   * And then calling the readItems method to update the state of the component
+   * @param nextProps IReactAccordionProps
+   */
   public componentWillReceiveProps(nextProps: IReactAccordionProps): void {
     if (
       this.props.maxItemsToFetchFromTheList !==
@@ -61,6 +64,11 @@ export default class ReactAccordion extends React.Component<
     }
   }
 
+  /***************************************************
+   * Checks if the list is not configured
+   * @param props IReactAccordionProps
+   * @returns boolean
+   **************************************************/
   private listNotConfigured(props: IReactAccordionProps): boolean {
     return (
       props.listName === undefined ||
@@ -69,6 +77,10 @@ export default class ReactAccordion extends React.Component<
     );
   }
 
+  /***************************************************
+   * Triggered for onkeypress event of searchbox
+   * @param event
+   **************************************************/
   private searchTextChange(event) {
     if (event === undefined || event === null || event === "") {
       let listItemsCollection = [...this.state.listItems];
@@ -87,6 +99,10 @@ export default class ReactAccordion extends React.Component<
     }
   }
 
+  /************************************************************
+   * Fetches the list content from the site contents
+   * @param nextLimit : The number used to limit number of items to fetch.
+   ************************************************************/
   private readItems(nextLimit?: number): void {
     // Limits the api request to fetch only a specific number of records
     const limit: number =
@@ -147,6 +163,10 @@ export default class ReactAccordion extends React.Component<
       );
   }
 
+  /***************************************************
+   * Render method for the component
+   * @returns React.ReactElement<IReactAccordionProps>
+   **************************************************/
   public render(): React.ReactElement<IReactAccordionProps> {
     if (this.props.listName !== this.state.listName) {
       let _listName = this.props.listName;
