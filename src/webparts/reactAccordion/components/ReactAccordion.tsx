@@ -263,8 +263,6 @@ export default class ReactAccordion extends React.Component<
       return customBtnStyle_active;
     };
 
-    console.log(this.props.headerBackgroundColor);
-
     for (let i = 0; i < pageCount; i++) {
       if (pageCount > 1)
         pageButtons.push(
