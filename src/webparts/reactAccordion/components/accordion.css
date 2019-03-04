@@ -50,9 +50,6 @@
   transition: transform 0.25s ease, -webkit-transform 0.25s ease;
 }
 
-.accordion__item {
-}
-
 .accordion {
   padding-top: 10px;
 }
@@ -66,12 +63,20 @@
   align-items: center;
 }
 
+.accordion__title,
+.accordion__title > h3 {
+  font-weight: 200;
+}
+
+.accordion__body {
+  font-weight: 300;
+}
+
 .accordion__item .accordion__title:hover {
   background-color: #c0c0c0 !important;
 }
 
 .accordion__item .accordion__title h3 {
-  font-weight: normal;
   width: 88%;
   margin: auto 0;
 }

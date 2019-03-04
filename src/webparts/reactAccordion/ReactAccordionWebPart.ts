@@ -22,7 +22,6 @@ import ReactAccordion from "./components/ReactAccordion";
 import { IReactAccordionProps } from "./components/IReactAccordionProps";
 import { SPHttpClient, SPHttpClientResponse } from "@microsoft/sp-http";
 import { ISPLists, ISPList } from "./models/ISPList";
-//import { listViewHostComponentId } from '../../../temp/workbench-packages/@microsoft_sp-loader/lib/utilities/componentConstants';
 
 export interface IReactAccordionWebPartProps {
   headerBackgroundColor: string;
