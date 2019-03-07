@@ -288,7 +288,12 @@ export default class ReactAccordion extends React.Component<
         <div className={styles.container}>
           {faqTitle}
           {displayLoader}
-          <div className={styles.webpartTitle} style={titleStyle}>
+          <div
+            role="heading"
+            aria-level="2"
+            className={styles.webpartTitle}
+            style={titleStyle}
+          >
             {this.props.title}
           </div>
           <div className="ms-Grid-row">

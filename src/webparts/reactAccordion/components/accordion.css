@@ -76,7 +76,7 @@
   background-color: #c0c0c0 !important;
 }
 
-.accordion__item .accordion__title h3 {
+.accordion__item .accordion__title span {
   width: 88%;
   margin: auto 0;
 }
