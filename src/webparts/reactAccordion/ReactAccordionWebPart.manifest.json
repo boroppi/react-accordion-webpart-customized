@@ -31,7 +31,8 @@
         "questionTextColor": "#000000",
         "answerBackgroundColor": "#ffffff",
         "answerTextColor": "#000000",
-        "title": "Enter a title..."
+        "title": "Enter a title...",
+        "isSearchAble": true
       }
     }
   ]

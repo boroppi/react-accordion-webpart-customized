@@ -15,5 +15,6 @@ export interface IReactAccordionProps {
   displayMode: DisplayMode;
   maxItemsPerPage: number;
   maxItemsToFetchFromTheList: number;
+  isSearchAble: boolean;
   updateListName: () => void;
 }

@@ -298,7 +298,9 @@ export default class ReactAccordion extends React.Component<
           </div>
           <div className="ms-Grid-row">
             <div className="ms-Grid-col ms-u-lg12">
-              <SearchBox onChange={this.searchTextChange} />
+              {this.props.isSearchAble ? (
+                <SearchBox onChange={this.searchTextChange} />
+              ) : null}
             </div>
           </div>
           <div className={`ms-Grid-row`}>

@@ -10,7 +10,8 @@ import {
   IPropertyPaneDropdownOption,
   PropertyPaneButton,
   PropertyPaneDropdownOptionType,
-  PropertyPaneButtonType
+  PropertyPaneButtonType,
+  PropertyPaneCheckbox
 } from "@microsoft/sp-webpart-base";
 import {
   PropertyFieldColorPicker,
@@ -36,11 +37,12 @@ export interface IReactAccordionWebPartProps {
   displayMode: DisplayMode;
   maxItemsPerPage: number;
   maxItemsToFetchFromTheList: number;
+  isSearchAble: boolean;
 }
 
 export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   IReactAccordionWebPartProps
-> {
+  > {
   private lists: IPropertyPaneDropdownOption[];
 
   public render(): void {
@@ -60,6 +62,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
       displayMode: this.displayMode,
       maxItemsPerPage: this.properties.maxItemsPerPage,
       maxItemsToFetchFromTheList: this.properties.maxItemsToFetchFromTheList,
+      isSearchAble: this.properties.isSearchAble,
       updateListName: () => {
         this.render();
       }
@@ -137,7 +140,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   protected onResetHeaderColorProperty = (): void => {
     this.properties.headerBackgroundColor = "#000047";
     this.properties.headerTextColor = "#ffffff";
-  };
+  }
 
   /***************************************************
    * This method is called after reset to default button is clicked
@@ -146,7 +149,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   protected onResetQuestionColorProperty = (): void => {
     this.properties.questionBackgroundColor = "#ffffff";
     this.properties.questionTextColor = "#000000";
-  };
+  }
 
   /***************************************************
    * This method is called after reset to default button is clicked
@@ -155,7 +158,7 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
   protected onResetAnswerColorProperty = (): void => {
     this.properties.answerBackgroundColor = "#ffffff";
     this.properties.answerTextColor = "#000000";
-  };
+  }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -192,6 +195,10 @@ export default class ReactAccordionWebPart extends BaseClientSideWebPart<
                   value: 5,
                   showValue: true,
                   step: 1
+                }),
+                PropertyPaneCheckbox("isSearchAble", {
+                  text: strings.isSearchAbleText,
+                  checked: true
                 })
               ]
             }
