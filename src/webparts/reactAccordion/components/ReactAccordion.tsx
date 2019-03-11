@@ -289,6 +289,16 @@ export default class ReactAccordion extends React.Component<
       color: this.props.headerTextColor
     };
 
+    let handleTitleStyles = () => {
+      return this.props.isSearchAble ? titleStyle : titleStyleNoSearchBox;
+    };
+
+    let handleAccordionStyle = () => {
+      return this.props.isSearchAble
+        ? { paddingTop: "5px" }
+        : { paddingTop: "0px" };
+    };
+
     return (
       <div className={styles.reactAccordion}>
         <div className={styles.container}>
@@ -298,7 +308,7 @@ export default class ReactAccordion extends React.Component<
             role="heading"
             aria-level="2"
             className={styles.webpartTitle}
-            style={this.props.isSearchAble ? titleStyle : titleStyleNoSearchBox}
+            style={handleTitleStyles()}
           >
             {this.props.title}
           </div>
@@ -312,13 +322,7 @@ export default class ReactAccordion extends React.Component<
           <div className={`ms-Grid-row`}>
             <div className="ms-Grid-col ms-u-lg12">
               {this.state.status}
-              <div
-                style={
-                  this.props.isSearchAble
-                    ? { paddingTop: "5px" }
-                    : { paddingTop: "0px" }
-                }
-              >
+              <div style={handleAccordionStyle()}>
                 <Accordion accordion={false}>{items}</Accordion>
               </div>
             </div>
