@@ -51,7 +51,7 @@
 }
 
 .accordion {
-  padding-top: 10px;
+  padding-top: inherit;
 }
 
 .accordion__item .accordion__title {
